@@ -4,8 +4,8 @@ import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow, T
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import SearchResults from '../SearchResults';
-import GroupResults from '../GroupResults';
+import SearchResults from '../components/SearchResults';
+import GroupResults from '../components/GroupResults';
 
 const StaffDashboard = () => {
   const [data, setData] = useState([]);
