@@ -4,8 +4,8 @@ import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow, T
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import SearchResults from '../components/SearchResults';
-import GroupResults from '../components/GroupResults';
+import SearchResults from '../SearchResults';
+import GroupResults from '../GroupResults';
 
 const StaffDashboard = () => {
   const [data, setData] = useState([]);
@@ -38,6 +38,16 @@ const StaffDashboard = () => {
     navigate('/');
   };
 
+  const handleSearchClick = () => {
+    setShowSearchResults(true);
+    setShowGroupResults(false);
+  };
+
+  const handleGroupSearchClick = () => {
+    setShowGroupResults(true);
+    setShowSearchResults(false);
+  };
+
   return (
     <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -51,10 +61,7 @@ const StaffDashboard = () => {
             value={doctorName}
             onChange={(e) => setDoctorName(e.target.value)}
           />
-          <IconButton aria-label='search' onClick={() => {
-            setShowGroupResults(true)
-            setShowSearchResults(false)
-          }}>
+          <IconButton aria-label='search' onClick={handleGroupSearchClick}>
             <SearchIcon />
           </IconButton>
         </div>
@@ -62,12 +69,9 @@ const StaffDashboard = () => {
           <TextField
             label='Name/Phone Number of Patient'
             value={searchItem}
-            onChange={(e) => setSearchItem(e.target.value)}
+            onChange={(e) => setSearchItem(e.target.value)}  
           />
-          <IconButton aria-label='search' onClick={() => {
-            setShowSearchResults(true)
-            setShowGroupResults(false)
-          }}>
+          <IconButton aria-label='search' onClick={handleSearchClick}>
             <SearchIcon />
           </IconButton>
         </div>

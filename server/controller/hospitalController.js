@@ -50,10 +50,15 @@ const searchAppointments = async (req, res) => {
         if (!decoded) {
             return res.status(401).json({ message: "Invalid Token" })
         }
-        const { search_item } = req.body;
+        let   search_item  = req.query.search_item;
         if (!search_item) {
             return res.status(400).json({ message: "No value for searching" });
         }
+        const tenDigitNumberRegex = /^\d{10}$/;
+
+if (tenDigitNumberRegex.test(search_item)) {
+  search_item = Number(search_item);
+}
         const query = !isNaN(search_item) ? { "phone": Number(search_item) } : { "name": search_item };
         const data = await appoinmentsModel.find(query)
         if (data.length === 0) {
@@ -76,8 +81,11 @@ const groupAppointments = async (req, res) => {
         if (!decoded) {
             return res.status(401).json({ message: "Invalid Token" })
         }
-        const { doctor } = req.body
-        const data = await appoinmentsModel.find({ doctor: doctor })
+        const  doctor  = req.query.doctor
+        if(!doctor){
+            return res.status(200).send([])
+        }
+        const data = await appoinmentsModel.find({ doctor: { $regex: new RegExp(doctor, 'i') } });
         if (data.length === 0) {
             return res.status(404).json({ message: "No data found" })
         }

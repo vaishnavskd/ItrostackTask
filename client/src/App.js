@@ -1,8 +1,8 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom'
-import Main from './pages/Main';
+import Main from './components/pages/Main';
 import Login from './components/Login';
-import StaffDashboard from './pages/StaffDashboard';
+import StaffDashboard from './components/pages/StaffDashboard';
 import CreateAppointment from './components/CreateAppointment';
 
 function App() {

@@ -10,22 +10,20 @@ const SearchResults = ({ item, accessToken, showResults }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:4001/hospital/search', { search_item: item }, {
+        const response = await axios.get(`http://localhost:4001/hospital/search?search_item=${item}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setData(response.data);
       } catch (error) {
         setError('Failed to fetch search results.');
         console.log(error.message);
       }
     };
 
-    if (item) {
+      console.log(item)
       fetchData();
-    }
-  }, [item, accessToken]);
+  }, [item]);
 
   return (
     <div style={{ width: '90%' }}>
